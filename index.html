@@ -1,186 +1,565 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Join Our Telegram Channel</title>
-
-  <!-- Meta Pixel Code -->
-  <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    
-    fbq('init', '677028811789830');
-    fbq('track', 'PageView');
-    
-    function trackTelegramJoin() {
-      fbq('track', 'Lead', {
-        content_name: 'Color Prediction Telegram Join',
-        content_category: 'Telegram Subscription',
-        value: 0.00,
-        currency: 'INR'
-      });
-      redirectToTelegram();
-    }
-    
-    function redirectToTelegram() {
-      window.location.href = "tg://join?invite=yanMwI6iw3hjNDll";
-      setTimeout(function() {
-        window.location.href = "https://t.me/+yanMwI6iw3hjNDll";
-      }, 1500);
-    }
-  </script>
-  <noscript>
-    <img height="1" width="1" style="display:none" 
-         src="https://www.facebook.com/tr?id=677028811789830&ev=PageView&noscript=1"/>
-  </noscript>
-  <!-- End Meta Pixel Code -->
-
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: radial-gradient(circle at center, #1e1e2f, #121220);
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      height: 100vh;
-      overflow: hidden;
-      text-align: center;
-    }
-
-    .content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      max-width: 500px;
-      padding: 20px;
-    }
-
-    .logo-container {
-      position: relative;
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      overflow: hidden;
-      margin-bottom: 20px;
-      border: 3px solid #00ffc8;
-      box-shadow: 0 0 30px rgba(0, 255, 200, 0.5);
-    }
-
-    .logo-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .channel-name {
-      font-size: 1.5em;
-      margin-bottom: 10px;
-      color: #00ffc8;
-      font-weight: bold;
-      text-shadow: 0 0 10px rgba(0, 255, 200, 0.5);
-    }
-
-    h1 {
-      font-size: 2.8em;
-      margin: 15px 0;
-      position: relative;
-      display: inline-block;
-      color: #ff00aa;
-      text-shadow: 
-        0 0 10px #ff00aa,
-        0 0 20px #ff00aa,
-        0 0 30px #ff00aa;
-      padding: 0 20px;
-      animation: glow 1.5s ease-in-out infinite alternate;
-    }
-
-    @keyframes glow {
-      0% { text-shadow: 0 0 10px #ff00aa; }
-      100% { text-shadow: 0 0 20px #ff00aa, 0 0 30px #ff00aa, 0 0 40px #ff00aa; }
-    }
-
-    .button {
-      margin-top: 25px;
-      padding: 18px 40px;
-      font-size: 1.6em;
-      font-weight: bold;
-      color: black;
-      background: #00ffc8;
-      border: none;
-      border-radius: 50px;
-      box-shadow: 0 0 30px #00ffc8;
-      cursor: pointer;
-      animation: buttonGlow 2s infinite ease-in-out;
-      text-decoration: none;
-      transition: transform 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .button:hover {
-      transform: scale(1.05);
-    }
-
-    @keyframes buttonGlow {
-      0% { box-shadow: 0 0 15px #00ffc8; }
-      50% { box-shadow: 0 0 30px #00ffc8; }
-      100% { box-shadow: 0 0 15px #00ffc8; }
-    }
-
-    .sub {
-      font-size: 1em;
-      color: #ccc;
-      margin-top: 12px;
-    }
-
-    footer {
-      position: absolute;
-      bottom: 10px;
-      font-size: 0.8em;
-      opacity: 0.5;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Ready Detector - Photo Upload | Naha Ke Ready Check 🤵</title>
+    <!-- TensorFlow.js + Body Segmentation + Face Detection -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.15.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-segmentation@1.0.0/dist/body-segmentation.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            max-width: 900px;
+            width: 100%;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        .header p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+        .upload-area {
+            padding: 30px;
+            background: #f8f9fa;
+            text-align: center;
+        }
+        .drop-zone {
+            border: 3px dashed #667eea;
+            border-radius: 15px;
+            padding: 40px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+        .drop-zone:hover {
+            border-color: #764ba2;
+            background: #f3e8ff;
+            transform: scale(1.02);
+        }
+        .drop-zone.drag-over {
+            border-color: #4caf50;
+            background: #e8f5e9;
+        }
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        .upload-text {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .upload-subtext {
+            font-size: 0.85rem;
+            color: #666;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        .manual-upload-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: transform 0.2s;
+        }
+        .manual-upload-btn:hover {
+            transform: translateY(-2px);
+        }
+        .preview-section {
+            padding: 20px;
+            background: #fff;
+            display: none;
+        }
+        .preview-section.show {
+            display: block;
+        }
+        .image-container {
+            position: relative;
+            text-align: center;
+            background: #f5f5f5;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        #uploadedImage {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        canvas {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: calc(100% - 20px);
+            height: calc(100% - 20px);
+            pointer-events: none;
+        }
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: bold;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .status-card {
+            padding: 20px;
+            background: #fff;
+            border-top: 2px solid #e0e0e0;
+        }
+        .status {
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .status.not-ready {
+            background: #fee;
+            color: #c62828;
+        }
+        .status.ready {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        .status.loading {
+            background: #fff3e0;
+            color: #e65100;
+        }
+        .message {
+            font-size: 1rem;
+            color: #666;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .success-animation {
+            animation: successPulse 0.6s ease-in-out;
+        }
+        @keyframes successPulse {
+            0% { transform: scale(1); background: #e8f5e9; }
+            50% { transform: scale(1.05); background: #4caf50; color: white; }
+            100% { transform: scale(1); background: #e8f5e9; color: #2e7d32; }
+        }
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .info-box {
+            background: #e3f2fd;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            margin-top: 15px;
+            text-align: left;
+        }
+        .feature-list {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        .feature {
+            background: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #667eea;
+        }
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.3rem; }
+            button { padding: 10px 20px; font-size: 0.9rem; }
+            .status { font-size: 1.2rem; }
+        }
+    </style>
 </head>
-
 <body>
-  <!-- Main Content -->
-  <div class="content">
-    <div class="logo-container">
-      <video autoplay loop muted playsinline class="logo-img">
-        <source src="https://files.catbox.moe/fswqj2.mp4" type="video/mp4">
-        <img src="" alt="ZIYA SURESHOT">
-      </video>
+    <div class="container">
+        <div class="header">
+            <h1>🚿 Naha Ke Ready Checker 🧼</h1>
+            <p>Photo upload karo - AI detect karega ki aap ready ho ya nahi</p>
+        </div>
+        
+        <div class="upload-area">
+            <div class="drop-zone" id="dropZone">
+                <div class="upload-icon">📸</div>
+                <div class="upload-text">Photo yahan click karo ya drag & drop karo</div>
+                <div class="upload-subtext">JPG, PNG format | Face aur body clear dikhni chahiye</div>
+                <input type="file" id="fileInput" accept="image/jpeg,image/png,image/jpg">
+                <br>
+                <button class="manual-upload-btn" onclick="document.getElementById('fileInput').click()">
+                    📁 Gallery se photo select karo
+                </button>
+            </div>
+        </div>
+        
+        <div class="preview-section" id="previewSection">
+            <div class="image-container" style="position: relative;">
+                <img id="uploadedImage" alt="Uploaded photo">
+                <canvas id="detectionCanvas"></canvas>
+            </div>
+            <div class="controls">
+                <button id="detectBtn" disabled>🔍 Detect Karo</button>
+                <button id="resetBtn">🔄 New Photo</button>
+            </div>
+        </div>
+        
+        <div class="status-card">
+            <div id="statusBox" class="status loading">
+                ⏳ Models load ho rahe hain...
+            </div>
+            <div id="messageBox" class="message">
+                ✨ Photo upload karo | Face + Body check hoga | Ready ho to Access open hoga
+            </div>
+            <div class="info-box">
+                <strong>💡 Kaise kaam karega:</strong><br>
+                <div class="feature-list">
+                    <span class="feature">✅ Face Detection</span>
+                    <span class="feature">👕 Body Detection</span>
+                    <span class="feature">🎯 Clothing Check</span>
+                    <span class="feature">🚪 Auto Access</span>
+                </div>
+                <div style="margin-top: 10px;">
+                    📌 <strong>Rules:</strong> Face dikhna chahiye + Body visible ho (kapde pehne ho) → Ready ho
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="channel-name">ZIYA VIP FREE</div>
-    <h1>NUMBER SURESHOT</h1>
-    <button onclick="trackTelegramJoin()" class="button">JOIN NOW</button>
-    <div class="sub">Get WINGO lottery predictions daily!</div>
-  </div>
 
-  <footer>&copy; 2025 Telegram Growth Network</footer>
-
-  <script>
-    // Auto-redirect after 3 seconds with tracking
-    setTimeout(function() {
-      fbq('track', 'ViewContent', {
-        content_name: 'Auto Redirect Attempt',
-        content_category: 'Telegram'
-      });
-      redirectToTelegram();
-    }, 3000);
-  </script>
+    <script>
+        // Global variables
+        let isModelLoaded = false;
+        let segmenter = null;
+        let currentImage = null;
+        let uploadedImageElement = document.getElementById('uploadedImage');
+        let detectionCanvas = document.getElementById('detectionCanvas');
+        let ctx = detectionCanvas.getContext('2d');
+        let accessOpened = false;
+        
+        // DOM elements
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const previewSection = document.getElementById('previewSection');
+        const detectBtn = document.getElementById('detectBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const statusBox = document.getElementById('statusBox');
+        const messageBox = document.getElementById('messageBox');
+        
+        // Load AI Models
+        async function loadModels() {
+            updateStatus("🔄 AI models load ho rahe hain... (Internet chahiye)", "loading");
+            try {
+                // Load Face API models
+                await faceapi.nets.tinyFaceDetector.loadFromUri('https://raw.githubusercontent.com/justadudewhohacks/face-api.js/master/weights');
+                console.log("✅ Face detection model loaded");
+                
+                // Load Body Segmentation model
+                segmenter = await bodySegmentation.createSegmenter(
+                    bodySegmentation.SupportedModels.MediaPipeSelfieSegmentation,
+                    { runtime: 'tfjs', modelType: 'general' }
+                );
+                console.log("✅ Body segmentation model loaded");
+                
+                isModelLoaded = true;
+                updateStatus("✅ AI Ready! Ab photo upload karo", "not-ready");
+                messageBox.innerHTML = "✅ Models load ho gaye! Ab photo upload karo aur detect karo";
+            } catch (err) {
+                console.error("Model load error:", err);
+                updateStatus("❌ Model load nahi hua. Internet check karo aur refresh karo", "not-ready");
+                messageBox.innerHTML = "⚠️ Internet connection check karo aur page refresh karo";
+            }
+        }
+        
+        // Update UI status
+        function updateStatus(text, type) {
+            statusBox.textContent = text;
+            statusBox.className = `status ${type}`;
+        }
+        
+        // Handle file upload
+        function handleFile(file) {
+            if (!file) return;
+            
+            if (!file.type.match('image.*')) {
+                updateStatus("❌ Sirf image file (JPG/PNG) upload karo", "not-ready");
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                currentImage = e.target.result;
+                uploadedImageElement.src = currentImage;
+                
+                uploadedImageElement.onload = function() {
+                    // Set canvas dimensions
+                    detectionCanvas.width = uploadedImageElement.width;
+                    detectionCanvas.height = uploadedImageElement.height;
+                    detectionCanvas.style.width = '100%';
+                    detectionCanvas.style.height = 'auto';
+                    
+                    previewSection.classList.add('show');
+                    detectBtn.disabled = !isModelLoaded;
+                    
+                    if (!isModelLoaded) {
+                        updateStatus("⏳ Models abhi load ho rahe hain... Thoda wait karo", "loading");
+                    } else {
+                        updateStatus("✅ Photo upload ho gayi! 'Detect Karo' button dabao", "not-ready");
+                    }
+                    
+                    messageBox.innerHTML = "📸 Photo upload ho gayi! Ab 'Detect Karo' button dabao";
+                };
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        // Main detection function
+        async function detectReady() {
+            if (!isModelLoaded) {
+                updateStatus("❌ Models load nahi hue. Thoda wait karo", "not-ready");
+                return;
+            }
+            
+            if (!currentImage) {
+                updateStatus("❌ Pehle photo upload karo", "not-ready");
+                return;
+            }
+            
+            updateStatus("🔍 Analyzing photo... Face + Body check ho raha hai", "loading");
+            detectBtn.disabled = true;
+            
+            try {
+                // Create image element for detection
+                const img = await loadImage(currentImage);
+                
+                // Clear canvas and draw image
+                ctx.clearRect(0, 0, detectionCanvas.width, detectionCanvas.height);
+                ctx.drawImage(img, 0, 0, detectionCanvas.width, detectionCanvas.height);
+                
+                // 1. Face Detection
+                const faceDetections = await faceapi.detectAllFaces(detectionCanvas, new faceapi.TinyFaceDetectorOptions());
+                const hasFace = faceDetections.length > 0;
+                
+                // Draw face boxes
+                if (hasFace) {
+                    faceDetections.forEach(det => {
+                        const box = det.box;
+                        ctx.strokeStyle = '#00ff00';
+                        ctx.lineWidth = 3;
+                        ctx.strokeRect(box.x, box.y, box.width, box.height);
+                        ctx.fillStyle = '#00ff00';
+                        ctx.font = 'bold 16px Arial';
+                        ctx.fillText('✅ Face', box.x, box.y - 5);
+                    });
+                }
+                
+                // 2. Body Segmentation
+                let hasBody = false;
+                let clothingScore = 0;
+                
+                try {
+                    const segmentation = await segmenter.segmentPeople(detectionCanvas);
+                    hasBody = segmentation.length > 0 && segmentation[0].maskData;
+                    
+                    if (hasBody) {
+                        ctx.fillStyle = 'rgba(0, 255, 0, 0.3)';
+                        ctx.fillRect(0, 0, detectionCanvas.width, detectionCanvas.height);
+                        clothingScore = 75; // Body detected = likely dressed
+                    }
+                } catch (err) {
+                    console.log("Body detection error:", err);
+                }
+                
+                // 3. Additional check: If upper body visible
+                let upperBodyVisible = hasBody;
+                
+                // Final decision
+                const isReady = hasFace && upperBodyVisible;
+                
+                if (isReady) {
+                    updateStatus("✅ DONE! Aap naha ke ready ho! 🎉", "ready");
+                    
+                    // Add animation
+                    statusBox.classList.add('success-animation');
+                    setTimeout(() => statusBox.classList.remove('success-animation'), 600);
+                    
+                    messageBox.innerHTML = "🎊 Access open ho raha hai... 🎊<br>✨ Bahut badhiya! ✨";
+                    
+                    // OPEN ACCESS - Multiple options
+                    if (!accessOpened) {
+                        accessOpened = true;
+                        
+                        // Option 1: Open Google in new tab
+                        setTimeout(() => {
+                            window.open('https://www.google.com', '_blank');
+                            
+                            // Option 2: Show success modal
+                            setTimeout(() => {
+                                const userConfirm = confirm("✅ DONE! Access Granted!\n\nAap naha ke ready ho!\nOK press karo");
+                                if (userConfirm) {
+                                    messageBox.innerHTML = "✨ Access open ho gaya! Aap ready ho ✨";
+                                }
+                            }, 300);
+                        }, 500);
+                        
+                        // Option 3: Redirect to another page (uncomment if needed)
+                        // setTimeout(() => {
+                        //     window.location.href = "https://www.youtube.com";
+                        // }, 1000);
+                    }
+                    
+                } else {
+                    let reason = [];
+                    if (!hasFace) reason.push("❌ Face nahi dikh raha (muh dikhao)");
+                    if (!upperBodyVisible) reason.push("❌ Body nahi dikh rahi / Kapde nahi pehne?");
+                    
+                    updateStatus(`❌ NOT READY`, "not-ready");
+                    messageBox.innerHTML = `${reason.join('<br>')}<br>💡 Dobara photo lo aur ensure karo face aur body dikhe!`;
+                    
+                    // Draw crosses on missing parts
+                    if (!hasFace) {
+                        ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
+                        ctx.fillRect(0, 0, detectionCanvas.width, detectionCanvas.height/2);
+                    }
+                }
+                
+            } catch (err) {
+                console.error("Detection error:", err);
+                updateStatus("❌ Error in detection. Dobara try karo", "not-ready");
+                messageBox.innerHTML = "⚠️ Kuch error aa gaya. Dobara photo upload karo";
+            } finally {
+                detectBtn.disabled = false;
+            }
+        }
+        
+        // Helper function to load image
+        function loadImage(src) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(img);
+                img.onerror = reject;
+                img.src = src;
+            });
+        }
+        
+        // Reset everything
+        function reset() {
+            currentImage = null;
+            uploadedImageElement.src = '';
+            previewSection.classList.remove('show');
+            ctx.clearRect(0, 0, detectionCanvas.width, detectionCanvas.height);
+            accessOpened = false;
+            updateStatus("✅ Reset! Naya photo upload karo", "not-ready");
+            messageBox.innerHTML = "✨ Naya photo upload karo aur detect karo ✨";
+            fileInput.value = '';
+        }
+        
+        // Drag and drop handlers
+        function setupDragAndDrop() {
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('drag-over');
+            });
+            
+            dropZone.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('drag-over');
+            });
+            
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('drag-over');
+                const file = e.dataTransfer.files[0];
+                if (file && file.type.match('image.*')) {
+                    handleFile(file);
+                } else {
+                    updateStatus("❌ Sirf image file drag karo", "not-ready");
+                }
+            });
+            
+            dropZone.addEventListener('click', () => {
+                fileInput.click();
+            });
+            
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files[0]) {
+                    handleFile(e.target.files[0]);
+                }
+            });
+        }
+        
+        // Button event listeners
+        detectBtn.addEventListener('click', detectReady);
+        resetBtn.addEventListener('click', reset);
+        
+        // Initialize
+        async function init() {
+            setupDragAndDrop();
+            await loadModels();
+        }
+        
+        init().catch(console.error);
+    </script>
 </body>
 </html>
